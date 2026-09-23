@@ -1,5 +1,5 @@
 {
-  "name": "dsh-imglight",
+  "name": "dsh-image-annotator",
   "version": "0.1.0",
   "description": "Cursor-style image lightbox for DSH chat: click an image to zoom in/out, copy, download, close (X); click the image to draw on it with Undo / Cancel / Save.",
   "type": "module",

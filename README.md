@@ -1,4 +1,4 @@
-# dsh-imglight
+# dsh-image-annotator
 
 Cursor-style image preview for [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) chat — a standalone plugin, built from scratch.
 
@@ -35,9 +35,9 @@ That is the whole feature set — nothing else.
 ## Install
 
 ```sh
-dsh plugin --profile <name> add <path-to-dsh-imglight>   # local checkout
+dsh plugin --profile <name> add <path-to-dsh-image-annotator>   # local checkout
 # or, once published:
-dsh plugin --profile <name> add dsh-imglight
+dsh plugin --profile <name> add dsh-image-annotator
 ```
 
 The bundle patch (`cordis.patch.yml`) self-mounts the row — no manual `cordis.patch.yml` edits.
