@@ -1,0 +1,11 @@
+# dsh-imglight bundle patch
+#
+# Mounts the plugin row when the package is installed into a profile
+# (dsh plugin --profile <name> add dsh-imglight). No manual cordis.yml edits.
+#
+# Double-mount guard: if another enabled entry already mounts dsh-imglight,
+# this row backs off and lets the first owner keep the row.
+- insert:
+    - id: dsh-imglight
+      name: 'dsh-imglight'
+      disabled: !!js "[...ctx.loader.entries()].some((e) => e.options.name === 'dsh-imglight' && e.options.id !== 'dsh-imglight' && !e.disabled)"
