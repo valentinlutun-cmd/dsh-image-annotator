@@ -4,6 +4,12 @@ Cursor-style image preview for [DeepSeek Harness](https://github.com/deepseek-ai
 
 Click any image in the chat (message, trajectory, tool card, or composer draft). The product's own lightbox opens, and this plugin grafts the Cursor behavior onto it:
 
+## Screenshots
+
+| Drawing — red pen + Undo / Cancel / Save | Saved output — the annotated PNG |
+| --- | --- |
+| ![draw](https://github.com/valentinlutun-cmd/dsh-image-annotator/raw/main/screenshots/2-draw.png) | ![output](https://github.com/valentinlutun-cmd/dsh-image-annotator/raw/main/screenshots/1-output.png) |
+
 ## Controls
 
 **Control pill (bottom center of the preview)**

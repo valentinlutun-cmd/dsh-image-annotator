@@ -2,6 +2,11 @@
   "name": "dsh-image-annotator",
   "version": "0.1.0",
   "description": "Cursor-style image lightbox for DSH chat: click an image to zoom in/out, copy, download, close (X); click the image to draw on it with Undo / Cancel / Save.",
+  "repository": "https://github.com/valentinlutun-cmd/dsh-image-annotator",
+  "screenshots": [
+    "https://github.com/valentinlutun-cmd/dsh-image-annotator/raw/main/screenshots/2-draw.png",
+    "https://github.com/valentinlutun-cmd/dsh-image-annotator/raw/main/screenshots/1-output.png"
+  ],
   "type": "module",
   "main": "lib/index.js",
   "exports": {
@@ -31,6 +36,8 @@
     "lib/index.js",
     "lib/client.js",
     "cordis.patch.yml",
+    "screenshots/1-output.png",
+    "screenshots/2-draw.png",
     "README.md",
     "LICENSE"
   ],
