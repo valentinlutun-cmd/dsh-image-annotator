@@ -57,3 +57,5 @@ The bundle patch (`cordis.patch.yml`) self-mounts the row — no manual `cordis.
 ## Platform
 
 Any platform the Web GUI runs on (pure browser canvas/clipboard).
+
+Tested against **DSH Desktop 0.1.7** (dsh-market v1.66.1) — see [CHANGELOG.md](CHANGELOG.md) for the 0.1.1 compatibility fix (the 0.1.7 `sessions.list` snapshot shape).
