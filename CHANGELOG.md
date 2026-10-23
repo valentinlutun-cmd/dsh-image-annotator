@@ -1,5 +1,30 @@
 # Changelog
 
+## 0.1.2 (2026-10-23)
+
+Compatibility release for **DSH Desktop ≥ 0.1.8** (verified on **0.12.1**).
+
+- The product's `ImageLightbox` changed its markup: the preview `<img>` is no
+  longer a **direct child** of the body-portal `[role=dialog]` (the
+  `position:fixed`, z-index 1000 backdrop). It is now nested one level down in
+  a `.stage` wrapper — `dialog > .stage > [ .mask, img.image, button.close ]`
+  (`.image` still `object-fit:contain`, z-index 1000 backdrop unchanged).
+  - The detector's "direct `img` child" check stopped matching, so the plugin
+    silently attached to nothing: no toolbar, no zoom, **no drawing** — the
+    exact symptom on 0.1.8+.
+  - The detector now falls back to the first element child that contains an
+    `<img>` (the stage wrapper) when there is no direct `img` child. The
+    `position:fixed` + `object-fit:contain` guards are unchanged, so the
+    product's other fixed dialogs (stats panels, context meter, popovers —
+    which carry small/cover-fitted images) are still correctly ignored.
+  - The direct-child path is kept, so the plugin still works on DSH ≤ 0.1.7.
+- No other behavior changed; zoom/copy/download/draw/Save are untouched.
+- Verified with a jsdom harness that boots the real `client.js` (stubbed
+  `__ModuleLoader__`): the 0.12.1 stage-wrapped lightbox attaches (toolbar +
+  canvas + draw row added), the 0.1.7 direct-child lightbox still attaches,
+  three non-lightbox dialogs are correctly ignored, and a pointerdown/move/up
+  stroke records without throwing.
+
 ## 0.1.1 (2026-09-26)
 
 Compatibility release for **DSH Desktop 0.1.7** (dsh-market v1.66.1).

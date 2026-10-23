@@ -35,7 +35,7 @@ That is the whole feature set — nothing else.
 
 ## How it works
 
-- No DSH source is touched. The plugin is a standalone bundle package; the product lightbox is detected structurally (body-portal `[role=dialog]`, fixed, direct `img` child with `object-fit: contain`) and augmented in the DOM, torn down again on close.
+- No DSH source is touched. The plugin is a standalone bundle package; the product lightbox is detected structurally (body-portal `[role=dialog]`, `position:fixed`, an `img` that is either a direct child (DSH ≤ 0.1.7) or one level down in the stage wrapper (DSH ≥ 0.1.8), with `object-fit: contain`) and augmented in the DOM, torn down again on close.
 - Pure browser code: one `MutationObserver`, a `<canvas>` overlay, `ClipboardItem`, and the product's own conversation API (`createDrafts` / `addAttachments` / `removeAttachment` / `releaseDraftAttachment`) for the draft swap.
 
 ## Install
@@ -58,4 +58,4 @@ The bundle patch (`cordis.patch.yml`) self-mounts the row — no manual `cordis.
 
 Any platform the Web GUI runs on (pure browser canvas/clipboard).
 
-Tested against **DSH Desktop 0.1.7** (dsh-market v1.66.1) — see [CHANGELOG.md](CHANGELOG.md) for the 0.1.1 compatibility fix (the 0.1.7 `sessions.list` snapshot shape).
+Tested against **DSH Desktop 0.12.1** — see [CHANGELOG.md](CHANGELOG.md) for the 0.1.2 compatibility fix (the lightbox image moved one level down into a `.stage` wrapper, so the detector fell back from the direct `img` child to the wrapper) and the 0.1.1 fix (the 0.1.7 `sessions.list` snapshot shape).
