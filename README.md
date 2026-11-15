@@ -58,4 +58,6 @@ The bundle patch (`cordis.patch.yml`) self-mounts the row — no manual `cordis.
 
 Any platform the Web GUI runs on (pure browser canvas/clipboard).
 
-Tested against **DSH Desktop 0.12.1** — see [CHANGELOG.md](CHANGELOG.md) for the 0.1.2 compatibility fix (the lightbox image moved one level down into a `.stage` wrapper, so the detector fell back from the direct `img` child to the wrapper) and the 0.1.1 fix (the 0.1.7 `sessions.list` snapshot shape).
+Tested against **DSH Desktop 0.14.0** (Harness core **0.2.2-rc.1**, Cordis 4.1.0 / Loader 1.1.0) and **DSH Desktop 0.12.1** (core 0.2.1-rc.2). See [CHANGELOG.md](CHANGELOG.md): 0.1.3 stops the bundle patch's double-mount guard from disabling the plugin's own row now that entry ids are namespaced (`include:dsh-image-annotator`) and stops `findDraftFor` from depending on the client `sessions.list` store, which Cordis 4.1 removed; 0.1.2 fixed the lightbox image moving one level down into a `.stage` wrapper; 0.1.1 fixed the 0.1.7 `sessions.list` snapshot shape.
+
+On DSH 0.2.2+ the product no longer exposes a "which session is in the main view" signal, so if no session id can be discovered **Save** uses the on-page behaviour instead of swapping a live composer draft in place.

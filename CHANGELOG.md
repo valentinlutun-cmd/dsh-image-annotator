@@ -1,5 +1,44 @@
 # Changelog
 
+## 0.1.3 (2026-11-15)
+
+Compatibility release for **DSH Desktop 0.14.0** (Harness core **0.2.2-rc.1**,
+Cordis Core 4.1.0 / Loader 1.1.0). Verified against the live 0.2.2-rc.1 profile:
+`dsh-client-ui-primitives` `ImageLightbox` is still
+`div.backdrop[role=dialog]` (fixed, z-index 1000) `> div.stage > [ div.mask, img.image
+(object-fit: contain), button.close ]`, so the DOM detector is unchanged and still
+matches.
+
+- **The plugin silently unmounted: fixed.** Its own double-mount guard in
+  `cordis.patch.yml` compared `entry.options.id !== 'dsh-image-annotator'`, but
+  Cordis 4.1 namespaces entry ids (`include:dsh-image-annotator`), so the row
+  matched **itself** and set `disabled: true` — Host state after the update was
+  `enabled: false`, `fiberPhase: null` while the bundle itself stayed enabled.
+  Result: no toolbar, no zoom, no drawing.
+  - The guard now also ignores ids ending in `:dsh-image-annotator`, and mounts
+    when `ctx.loader.entries()` is missing or shaped differently instead of
+    treating an unknown loader face as "someone else owns it".
+  - A genuine second owner (the plugin listed in the profile's own bundle set)
+    still wins, so the duplicate-factory boot crash the guard exists for stays
+    guarded.
+- **Composer-draft lookup adapted.** The client `sessions` face no longer exposes
+  the `sessions.list` snapshot store (`{ ids, byId, retainedBy.mainView }`), and
+  `SessionRetainInfo.retainedBy` is keyed by reference source
+  (`controllerOperation`, `gateway`) with no `mainView` signal, so the old
+  "which session is in the main view" lookup could never resolve on 0.2.2.
+  `findDraftFor()` now probes candidate ids from a `candidateSessionIds()` helper:
+  the 0.1.x/0.2.1 snapshot path is kept, and on newer hosts ids come from the
+  route plus any `[data-session-id]` element, each probed through
+  `sessions.scope(id)`. Draft swapping itself is untouched —
+  `conversation.input.for(actx)`, `actions.addAttachments/removeAttachment`,
+  `createDrafts`, `resolveDraftAttachments` and `releaseDraftAttachment(s)` all
+  still exist in 0.2.2-rc.1.
+- When no session id can be discovered, **Save** falls back to the existing
+  on-page behaviour (every `<img>` copy of that image is re-pointed at the
+  annotated PNG); the draft rail keeps the original until it is re-added.
+- Zoom, wheel zoom, pan, drag-to-draw, Undo / Cancel, copy and download are
+  unchanged; the product lightbox still has no zoom or download of its own.
+
 ## 0.1.2 (2026-10-23)
 
 Compatibility release for **DSH Desktop ≥ 0.1.8** (verified on **0.12.1**).

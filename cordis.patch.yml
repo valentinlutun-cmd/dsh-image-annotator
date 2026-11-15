@@ -5,7 +5,18 @@
 #
 # Double-mount guard: if another enabled entry already mounts dsh-image-annotator,
 # this row backs off and lets the first owner keep the row.
+#
+# 0.1.3 — the guard is now defensive, because Cordis 4.1 / Loader 1.1 (DSH 0.2.2)
+# changed the entry snapshot an `!!js` patch expression sees:
+#   - entry ids are namespaced (`include:dsh-image-annotator`), so the row's own id
+#     no longer equals the literal `dsh-image-annotator` the guard excluded, and the
+#     row matched ITSELF: `disabled: true`, `enabled: false`, `fiberPhase: null` —
+#     the plugin silently never mounted (no toolbar, no drawing).
+#   - `ctx.loader.entries()` is no longer guaranteed, so a missing/changed face must
+#     not disable the only owner either.
+# The guard therefore ignores namespaced ids for this same module and mounts
+# whenever the loader face is unknown; a genuine second owner still wins.
 - insert:
     - id: dsh-image-annotator
       name: 'dsh-image-annotator'
-      disabled: !!js "[...ctx.loader.entries()].some((e) => e.options.name === 'dsh-image-annotator' && e.options.id !== 'dsh-image-annotator' && !e.disabled)"
+      disabled: !!js "typeof ctx.loader?.entries !== 'function' ? false : [...ctx.loader.entries()].some((entry) => { const options = entry?.options || {}; const id = String(options.id ?? entry?.id ?? ''); return options.name === 'dsh-image-annotator' && id !== 'dsh-image-annotator' && !id.endsWith(':dsh-image-annotator') && entry.disabled !== true; })"
